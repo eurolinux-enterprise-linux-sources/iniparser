@@ -3,13 +3,14 @@
 
 Name:		iniparser
 Version:	3.1
-Release:	2%{?dist}
+Release:	5%{?dist}
 Summary:	C library for parsing "INI-style" files
 
 Group:		System Environment/Libraries
 License:	MIT
 URL:		http://ndevilla.free.fr/%{name}/
 Source0:	http://ndevilla.free.fr/%{name}/%{name}-%{version}.tar.gz
+Patch0:		iniparser-3.1-Fix-crash-with-crafted-ini-files.patch
 
 %description
 iniParser is an ANSI C library to parse "INI-style" files, often used to
@@ -27,6 +28,7 @@ you will need to install %{name}-devel.
 
 %prep
 %setup -q -n %{name}
+%patch0 -p1 -b .iniparser-3.1-Fix-crash-with-crafted-ini-files.patch
 
 %build
 # remove library rpath from Makefile
@@ -64,6 +66,15 @@ make check
 %{_includedir}/*.h
 
 %changelog
+* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 3.1-5
+- Mass rebuild 2014-01-24
+
+* Fri Jan 10 2014 - Andreas Schneider <asn@redhat.com> - 3.1-4
+- resolves: #1031119 - Fix possible crash with crafted ini files.
+
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 3.1-3
+- Mass rebuild 2013-12-27
+
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
